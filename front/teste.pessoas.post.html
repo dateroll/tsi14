@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>teste</title>
+	<style type="text/css">
+
+		form div label{
+			display: inline-block;
+			width: 30vw;
+			text-align: right;
+		}
+
+		form div label:after{
+			content: ": "
+		}
+	</style>
+</head>
+<body>
+	<div class="rodela">saa</div>
+	<form>
+		<div>
+			<label>nome</label>
+			<input type="text" name="nome">
+		</div>
+		<div>
+			<label>cpf</label>
+			<input type="number" name="cpf">
+		</div>
+		<div>
+			<label>data de nascimento</label>
+			<input type="date" name="dataNasc">
+		</div>
+		<div>
+			<button class="bt-envia-dados">Envia Dados</button>
+		</div>
+	</form>
+	
+	<script>
+		var esperandoOAjax = false;
+		var form = document.querySelector("form");
+		var btEnviaDados = document.querySelector("button.bt-envia-dados");
+		
+		form.onsubmit = function(evt){
+			evt.preventDefault();
+		};
+
+		btEnviaDados.onclick = function(evt){
+			evt.preventDefault();
+
+
+			if(esperandoOAjax){
+				alert("Ow seu nóia, espea eu trabaiá! já te respondo");
+				return false;
+			}
+
+			esperandoOAjax = true;
+
+			var xhr = new XMLHttpRequest();
+			
+			xhr.open("POST", "http://127.0.0.1:8080/pessoa", true);
+
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			xhr.error = function(){
+				alert("cara eu tentei, mais num cunsigui! Não vai dá não!");
+				esperandoOAjax = false;
+			}
+
+			xhr.onload = function () {
+				esperandoOAjax = false;
+				alert("eu enviei os dados e recebi um json de retorno, não sei se tudo deu certo!");
+			};
+
+			var nome = document.querySelector("[name=nome]").value;
+			var cpf = document.querySelector("[name=cpf]").value;
+			var dataNasc = document.querySelector("[name=dataNasc]").value;
+
+			xhr.send(`nome=${nome}&cpf=${cpf}&dataNasc=${dataNasc}`);
+		};
+	</script>
+</body>
+</html>

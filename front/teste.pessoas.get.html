@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>teste</title>
+</head>
+<body>
+<!-- 
+	<div id="pessoa">
+		<div>
+			nome: <span class="nome"></span> 
+		</div>
+		<div>
+			cpf: <span class="cpf"></span>
+		</div>
+		<div>
+			Data de Nascimento: <span class="dataNasc"></span>
+		</div>
+	</div>
+ -->
+
+ 	<div id="pessoas">
+ 		<!-- o conteudo sera carregado dinamicamente -->
+ 	</div>
+
+	<script>
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open("GET", "http://127.0.0.1:8080/pessoa", true);
+
+		xhr.onload = function () {
+			var respostaJson = JSON.parse( xhr.responseText );
+			var domPessoas = document.getElementById("pessoas");
+			var linha;
+			var coluna;
+
+			var labels = {
+				nome     : "Nome: ",
+				cpf      : "CPF: ",
+				dataNasc : "Data de Nascimento: "
+			};
+
+			for(linha in respostaJson){
+				var pessoaAtual = respostaJson[ linha ];
+				var domPessoa = document.createElement("div");
+
+				for(coluna in pessoaAtual){
+					var domColuna = document.createElement("div");
+					var domSpan   = document.createElement("span");
+
+					domColuna.innerText = labels[ coluna ];
+					domSpan.innerText   = pessoaAtual[ coluna ];
+
+					domPessoa.appendChild( domColuna );
+					domColuna.appendChild( domSpan );
+				}
+
+				domPessoas.appendChild(domPessoa);
+			}
+		};
+
+		xhr.send();
+	</script>
+</body>
+</html>
