@@ -5,21 +5,28 @@ export default class Pessoa{
 	static filedata = `${__dirname}/../../data/pessoa.json`;  
 
 	static testeMySQL() {
-		var connection = MySQL.createConnection({
-			host     : 'localhost',
-			user     : 'root',
-			password : '',
-			database : 'chat'
-		});
-		connection.connect();
-		connection.query(
-			'SELECT * FROM pessoa WHERE 1', 
-			function(err, rows, fields) {
-				if (err) throw err;
-				console.log(rows);
-			}
-		);
-		connection.end();
+		var minhaPromessa = new Promise(function(certo, erro) {
+			var connection = MySQL.createConnection({
+				host     : 'localhost',
+				user     : 'root',
+				password : '',
+				database : 'chat'
+			});
+			connection.connect();
+
+			var x = connection.query(
+				'SELECT * FROM pessoa WHERE 1', 
+				function(err, rows, fields) {
+					if (err) {
+						erro(err);
+					} else {
+						certo(rows);
+					}
+			});
+			connection.end();
+		})
+
+		return minhaPromessa;
 	}
 
 	constructor(

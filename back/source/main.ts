@@ -1,6 +1,23 @@
 import Pessoa from './classes/pessoa.class';
 
-Pessoa.testeMySQL();
+var x = "Assassinhora!";
+
+Pessoa.testeMySQL().then(
+	function(rows){
+		x = rows;
+	}, 
+
+	function(err){
+		throw err;
+	}
+);
+
+
+setTimeout(function() {
+	console.log(x);
+}, 10 * 1000);
+
+console.log(x);
 
 // import * as http from 'http';
 // import * as WebSocket from 'ws';
@@ -11,29 +28,18 @@ Pessoa.testeMySQL();
 // const wss = new WebSocketServer({server: httpServer});
 // const rest = new Rest();
 
-
-
-
-
-// wss.on('connection', (conexaoAtual) => {
-//   conexaoAtual.send('Conexão estabelecida!');
-//   conexaoAtual.on('message', (message) => {
-//   	console.log(message.toString());
-//     conexaoAtual.send( message.toString().toUpperCase() + "!!!" );
-//   });
-// });
-
-
-// (<any>wss).broadcast = function(data){
+// (<any>wss).broadcast = function(data) {
 //   wss.clients.forEach( (client) => {
 //     client.send(data);
 //   });
 // };
 
-
-
-
-
+// wss.on('connection', (conexaoAtual) => {
+// 	conexaoAtual.send('Conexão estabelecida!');
+// 	conexaoAtual.on('message', (message) => {
+// 		wss.broadcast(message);
+// 	});
+// });
 
 // httpServer.on("request", rest.expressInstance);
 
