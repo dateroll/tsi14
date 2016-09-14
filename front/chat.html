@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Chat</title>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			padding: 0;
+			margin: 0;
+			border: 0;
+		}
+
+		div.main {
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		div.main div.mensagens {
+			width: 100%;
+			height: 80%;
+			background-color: rgba(0,0,0,.5)
+		}
+
+		div.main div.input {
+			display: flex;
+		}
+
+		div.main div.input textarea {
+			width: 90vw;
+		}
+
+		div.main div.input button {
+			width: 10vw
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="mensagens">
+			<div class="mensagem">
+				<div class="usuario">daniel</div>
+				<div class="texto">olá mundo cruel!</div>
+			</div>
+		</div>
+		<div class="input">
+			<textarea></textarea>
+			<button>enviar</button>
+		</div>
+	</div>
+
+</body>
+</html>
